@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
+import axios from 'axios';
 
 class BookDetailsView extends Component {
   state = {
@@ -13,21 +13,22 @@ class BookDetailsView extends Component {
 
   async componentDidMount() {
     const { bookId } = this.props.match.params;
-    const response = await Axios.get(
+
+    const { data } = await axios.get(
       `http://localhost:4040/books/${bookId}?_expand=author`,
     );
 
-    this.setState({ ...response.data });
+    this.setState({ ...data });
   }
 
   render() {
     const { imgUrl, title, author, descr } = this.state;
     return (
       <>
-        <h1>Страница одной книги {this.props.match.params.bookId}</h1>
-        <img src={imgUrl} alt="" />
+        <h1>Єто страница одной Книги {this.props.match.params.bookId}</h1>
+        <img src={imgUrl} alt={title}></img>
         <h2>{title}</h2>
-        {author && <p>Автор: {author.name}</p>}
+        {author && <p>Автор : {author.name}</p>}
         <p>{descr}</p>
       </>
     );

@@ -1,12 +1,51 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, NavLink, Switch } from 'react-router-dom';
 import HomeVeiw from './views/HomeView';
 import AuthorsView from './views/AuthorsView';
+import BooksView from './views/BooksView';
+import NotFoundView from './views/NotFoundView';
+import BookDetailsView from './views/BookDetailsView';
 
 const App = () => (
   <>
-    <Route path="/" component={HomeVeiw} />
-    <Route path="/authors" component={AuthorsView} />
+    <ul>
+      <li>
+        <NavLink
+          exact
+          to="/"
+          className="NavLink"
+          activeClassName="NavLink--active"
+        >
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/authors"
+          className="NavLink"
+          activeClassName="NavLink--active"
+        >
+          Authors
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/books"
+          className="NavLink"
+          activeClassName="NavLink--active"
+        >
+          Books
+        </NavLink>
+      </li>
+    </ul>
+
+    <Switch>
+      <Route exact path="/" component={HomeVeiw} />
+      <Route path="/authors" component={AuthorsView} />
+      <Route path="/books/:bookId" component={BookDetailsView} />
+      <Route path="/books" component={BooksView} />
+      <Route component={NotFoundView} />
+    </Switch>
   </>
 );
 

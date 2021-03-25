@@ -1,6 +1,6 @@
+import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Axios from 'axios';
 
 class BooksView extends Component {
   state = {
@@ -8,22 +8,20 @@ class BooksView extends Component {
   };
 
   async componentDidMount() {
-    const response = await Axios.get('http://localhost:4040/books');
-
-    this.setState({ books: response.data });
+    const { data } = await axios.get('http://localhost:4040/books');
+    this.setState({ books: data });
   }
 
   render() {
+    const { url } = this.props.match;
+
     return (
       <>
-        <h1>Это страница книг</h1>
-
+        <h1>Єто страница Книги</h1>
         <ul>
           {this.state.books.map(book => (
             <li key={book.id}>
-              <Link to={`${this.props.match.url}/${book.id}`}>
-                {book.title}
-              </Link>
+              <Link to={`${url}/${book.id}`}>{book.title}</Link>
             </li>
           ))}
         </ul>
